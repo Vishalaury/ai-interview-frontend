@@ -1,16 +1,90 @@
-# React + Vite
+# 🎯 AI Interview Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
 
-Currently, two official plugins are available:
+This is the frontend of the AI Interview System, a web application that allows users to practice mock interviews powered by AI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It provides a smooth and interactive UI for users to answer questions, view feedback, and track their performance.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+* React.js
+* Vite
+* Tailwind CSS
+* Axios
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+* 🔐 User Authentication (Google Login)
+* 🎤 AI-based Interview Interaction
+* 📊 Performance & Feedback UI
+* ⚡ Fast and responsive design
+* 🔗 Seamless integration with backend APIs
+
+---
+
+## 📂 Project Structure
+
+src/
+├── components/
+├── pages/
+├── services/
+├── assets/
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+
+git clone https://github.com/Vishalaury/ai-interview-frontend.git
+
+### 2️⃣ Install dependencies
+
+npm install
+
+### 3️⃣ Run the project
+
+npm run dev
+
+---
+
+## 🌐 Environment Variables
+
+Create a `.env` file in the root and add:
+
+VITE_API_URL=http://localhost:8000
+
+---
+
+## 🔗 Backend Repository
+
+👉 https://github.com/Vishalaury/ai-interview-backend
+
+---
+
+## 🧠 Architecture
+
+Frontend → Backend → AI API
+
+---
+
+## 📸 Screenshots
+
+(Add your project screenshots here)
+
+---
+
+## 👨‍💻 Author
+
+Vishal Maurya
+
+---
+
+## ⭐ Note
+
+This project is built for learning and demonstrating full-stack development skills.
