@@ -3,16 +3,17 @@ import {Route, Routes} from 'react-router-dom'
 import axios from "axios"
 
 import Home from './pages/Home'
-import Auth from './pages/auth'
+import Auth from './pages/Auth'
 import { useDispatch } from 'react-redux'
 import { setUserData } from './redux/userSlice'
 import InterviewPage from './pages/InterviewPage'
-import InterviewHistory from './pages/interviewHistory'
+// import InterviewHistory from './pages/interviewHistory'
+import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
 
-export const ServerUrl = "http://localhost:8000"
-
+// export const ServerUrl = "http://localhost:8000"
+export const ServerUrl = import.meta.env.VITE_SERVER_URL
 function App() {
 
   const dispatch = useDispatch()
