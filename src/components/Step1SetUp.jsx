@@ -571,417 +571,6 @@
 
 
 
-// import React from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { motion } from "framer-motion";
-// import {
-//   FaUserTie,
-//   FaBriefcase,
-//   FaFileUpload,
-//   FaMicrophoneAlt,
-//   FaChartLine,
-// } from "react-icons/fa";
-// import { useState } from "react";
-// import axios from "axios";
-// import { setUserData } from "../redux/userSlice";
-// // const ServerUrl = "http://localhost:8000";
-//  const ServerUrl =import.meta.env.VITE_SERVER_URL
-
-// function Step1SetUp({ onStart }) {
-
-
-//   const {userData}= useSelector((state)=>state.user)
-//   const dispatch = useDispatch()
-// const [role,setRole] = useState("");
-// const [experience,setExperience] = useState("");
-// const [mode,setMode] = useState("Technical");
-// const [resumeText, setResumeText] = useState("");
-// const [resumeFile,setResumeFile] = useState(null);
-// const [projects,setProjects] = useState([]);
-// const [skills,setSkills] = useState([]);
-
-// const [analysisDone,setAnalysisDone] = useState(false);
-// const [analyzing,setAnalyzing] = useState(false);
-// const [showSuccess,setShowSuccess] = useState(false);
-// const [showAllSkills,setShowAllSkills] = useState(false);
-// const [loading,setLoading] = useState(false);
-// const visibleSkills = showAllSkills ? skills : skills.slice(0,6);
-// const remainingSkills = skills.length - 6;
-
-// const handleUploadResume = async () => {
-
-// if(!resumeFile || analyzing) return;
-
-// setAnalyzing(true);
-
-// const formdata = new FormData();
-// formdata.append("resume",resumeFile);
-
-// try{
-
-// const result = await axios.post(
-// `${ServerUrl}/api/interview/resume`,
-// formdata,
-// {withCredentials:true}
-// );
-
-// setRole(result.data.role || "");
-// setExperience(result.data.experience || "");
-// setProjects(result.data.projects || []);
-// setSkills(result.data.skills || []);
-
-// setAnalysisDone(true);
-// setShowSuccess(true);
-
-// setTimeout(()=>{
-// setShowSuccess(false);
-// },3000);
-
-// }catch(error){
-// console.log(error);
-// }
-
-// setAnalyzing(false);
-
-// };
-
-// const removeResume = (e) => {
-
-// e.stopPropagation();
-
-// setResumeFile(null);
-// setProjects([]);
-// setSkills([]);
-// setAnalysisDone(false);
-
-// };
-
-
-// const handleStart = async () => {
-//   setLoading(true)
-//   try {
-//     // const result = await axios.post(ServerUrl + "/api/interview/generate-questions", { role, experience, mode, resumeText, projects, skills }, { withCredentials: true })
-//     const result = await axios.post(
-// ServerUrl + "/api/interview/generate-questions",
-// { role, experience, mode, projects, skills },
-// { withCredentials: true }
-// )
-//     console.log(result.data)
-//     if(userData){
-//       dispatch(setUserData({...userData, credits:result.data.creditsLeft}))
-//     }
-//     setLoading(false)
-//     onStart(result.data)
-//   } catch (error) {
-//   console.log(error)
-
-//   if (error.response && error.response.data && error.response.data.message) {
-//     alert(error.response.data.message)
-//   }
-
-//   setLoading(false)
-// }
-// }
-
-
-
-// return (
-
-// <motion.div
-// initial={{opacity:0}}
-// animate={{opacity:1}}
-// transition={{duration:0.6}}
-// className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4 py-12"
-// >
-
-// <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden">
-
-// {/* LEFT SECTION */}
-
-// <motion.div
-// initial={{x:-80,opacity:0}}
-// animate={{x:0,opacity:1}}
-// transition={{duration:0.7}}
-// className="bg-gradient-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
-// >
-
-// <h2 className="text-4xl font-bold text-gray-800 mb-6">
-// Start Your AI Interview
-// </h2>
-
-// <p className="text-gray-600 mb-10">
-// Practice real interview scenarios powered by AI.
-// </p>
-
-// <div className="space-y-5">
-
-// {[
-// {
-// icon:<FaUserTie className="text-green-600 text-xl"/>,
-// text:"Choose Role & Experience"
-// },
-// {
-// icon:<FaMicrophoneAlt className="text-green-600 text-xl"/>,
-// text:"Smart Voice Interview"
-// },
-// {
-// icon:<FaChartLine className="text-green-600 text-xl"/>,
-// text:"Performance Analytics"
-// }
-// ].map((item,index)=>(
-
-// <motion.div
-// key={index}
-// whileHover={{scale:1.03}}
-// className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm"
-// >
-
-// {item.icon}
-// <span className="text-gray-700 font-medium">{item.text}</span>
-
-// </motion.div>
-
-// ))}
-
-// </div>
-
-// </motion.div>
-
-// {/* RIGHT SECTION */}
-
-// <motion.div
-// initial={{x:80,opacity:0}}
-// animate={{x:0,opacity:1}}
-// transition={{duration:0.7}}
-// className="p-12 bg-white"
-// >
-
-// <h2 className="text-3xl font-bold text-gray-800 mb-8">
-// Interview Setup
-// </h2>
-
-// <div className="space-y-6">
-
-// {/* ROLE */}
-
-// <div className="relative">
-
-// <FaUserTie className="absolute top-4 left-4 text-gray-400"/>
-
-// <input
-// type="text"
-// placeholder="Enter role"
-// value={role}
-// onChange={(e)=>setRole(e.target.value)}
-// className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500"
-// />
-
-// </div>
-
-// {/* EXPERIENCE */}
-
-// <div className="relative">
-
-// <FaBriefcase className="absolute top-4 left-4 text-gray-400"/>
-
-// <input
-// type="text"
-// placeholder="Experience"
-// value={experience}
-// onChange={(e)=>setExperience(e.target.value)}
-// className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500"
-// />
-
-// </div>
-
-// <select
-// value={mode}
-// onChange={(e)=>setMode(e.target.value)}
-// className="w-full py-3 px-4 border border-gray-200 rounded-xl"
-// >
-
-// <option value="Technical">Technical Interview</option>
-// <option value="HR">HR Interview</option>
-
-// </select>
-
-// {/* SUCCESS MESSAGE */}
-
-// {showSuccess && (
-
-// <p className="text-green-600 text-sm font-medium">
-// ✓ Resume analyzed successfully
-// </p>
-
-// )}
-
-// {/* RESUME UPLOAD */}
-
-// {!analysisDone && (
-
-// <motion.div
-// onClick={()=>document.getElementById("resumeUpload").click()}
-// className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500"
-// >
-
-// <FaFileUpload className="text-4xl mx-auto text-green-600 mb-3"/>
-
-// <input
-// type="file"
-// accept="application/pdf"
-// id="resumeUpload"
-// className="hidden"
-// onChange={(e)=>setResumeFile(e.target.files[0])}
-// />
-
-// <p className="text-gray-600">
-
-// {resumeFile ? resumeFile.name : "Click to upload resume"}
-
-// </p>
-
-// {resumeFile && (
-
-// <div className="flex justify-center gap-4 mt-4">
-
-// <button
-// onClick={(e)=>{e.stopPropagation();handleUploadResume();}}
-// className="bg-gray-900 text-white px-5 py-2 rounded-lg"
-// >
-
-// {analyzing ? "Analyzing..." : "Analyze Resume"}
-
-// </button>
-
-// <button
-// onClick={removeResume}
-// className="text-red-500 text-sm"
-// >
-
-// Remove
-
-// </button>
-
-// </div>
-
-// )}
-
-// </motion.div>
-
-// )}
-
-// {/* RESULT */}
-
-// {analysisDone && (
-
-// <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
-
-// <h3 className="text-lg font-semibold text-gray-800">
-// Resume Analysis Result
-// </h3>
-
-// {projects.length>0 && (
-
-// <div>
-
-// <p className="font-medium text-gray-700 mb-1">
-// Projects:
-// </p>
-
-// <ul className="list-disc list-inside text-gray-600">
-
-// {projects.map((p,i)=>(
-// <li key={i}>{p}</li>
-// ))}
-
-// </ul>
-
-// </div>
-
-// )}
-
-// {skills.length>0 && (
-
-// <div>
-
-// <p className="font-medium text-gray-700 mb-1">
-// Skills:
-// </p>
-
-// <div className="flex flex-wrap gap-2">
-
-// {visibleSkills.map((s,i)=>(
-
-// <span
-// key={i}
-// className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
-// >
-// {s}
-// </span>
-
-// ))}
-
-// {!showAllSkills && remainingSkills>0 && (
-
-// <button
-// onClick={()=>setShowAllSkills(true)}
-// className="text-green-600 text-sm"
-// >
-// +{remainingSkills} more
-// </button>
-
-// )}
-
-// {showAllSkills && (
-
-// <button
-// onClick={()=>setShowAllSkills(false)}
-// className="text-green-600 text-sm"
-// >
-// Show Less
-// </button>
-
-// )}
-
-// </div>
-
-// </div>
-
-// )}
-
-// </div>
-
-// )}
-
-// <motion.button
-// onClick={handleStart}
-// disabled={!role || !experience || loading}
-// className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-full"
-// >
-
-// {loading ? "Starting...":"Start Interview"}
-
-// </motion.button>
-
-// </div>
-
-// </motion.div>
-
-// </div>
-
-// </motion.div>
-
-// );
-
-// }
-
-// export default Step1SetUp;
-
-
-
-
-
-
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
@@ -995,199 +584,610 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { setUserData } from "../redux/userSlice";
-
-const ServerUrl = import.meta.env.VITE_SERVER_URL;
+// const ServerUrl = "http://localhost:8000";
+ const ServerUrl =import.meta.env.VITE_SERVER_URL
 
 function Step1SetUp({ onStart }) {
 
-  const { userData } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
-  const [role, setRole] = useState("");
-  const [experience, setExperience] = useState("");
-  const [mode, setMode] = useState("Technical");
+  const {userData}= useSelector((state)=>state.user)
+  const dispatch = useDispatch()
+const [role,setRole] = useState("");
+const [experience,setExperience] = useState("");
+const [mode,setMode] = useState("Technical");
+const [resumeText, setResumeText] = useState("");
+const [resumeFile,setResumeFile] = useState(null);
+const [projects,setProjects] = useState([]);
+const [skills,setSkills] = useState([]);
 
-  const [resumeText, setResumeText] = useState(""); // ✅ ADDED
+const [analysisDone,setAnalysisDone] = useState(false);
+const [analyzing,setAnalyzing] = useState(false);
+const [showSuccess,setShowSuccess] = useState(false);
+const [showAllSkills,setShowAllSkills] = useState(false);
+const [loading,setLoading] = useState(false);
+const visibleSkills = showAllSkills ? skills : skills.slice(0,6);
+const remainingSkills = skills.length - 6;
 
-  const [resumeFile, setResumeFile] = useState(null);
-  const [projects, setProjects] = useState([]);
-  const [skills, setSkills] = useState([]);
+const handleUploadResume = async () => {
 
-  const [analysisDone, setAnalysisDone] = useState(false);
-  const [analyzing, setAnalyzing] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showAllSkills, setShowAllSkills] = useState(false);
-  const [loading, setLoading] = useState(false);
+if(!resumeFile || analyzing) return;
 
-  const visibleSkills = showAllSkills ? skills : skills.slice(0, 6);
-  const remainingSkills = skills.length - 6;
+setAnalyzing(true);
 
-  const handleUploadResume = async () => {
-    if (!resumeFile || analyzing) return;
+const formdata = new FormData();
+formdata.append("resume",resumeFile);
 
-    setAnalyzing(true);
+try{
 
-    const formdata = new FormData();
-    formdata.append("resume", resumeFile);
+const result = await axios.post(
+`${ServerUrl}/api/interview/resume`,
+formdata,
+{withCredentials:true}
+);
 
-    try {
-      const result = await axios.post(
-        `${ServerUrl}/api/interview/resume`,
-        formdata,
-        { withCredentials: true }
-      );
+setRole(result.data.role || "");
+setExperience(result.data.experience || "");
+setProjects(result.data.projects || []);
+setSkills(result.data.skills || []);
 
-      setRole(result.data.role || "");
-      setExperience(result.data.experience || "");
-      setProjects(result.data.projects || []);
-      setSkills(result.data.skills || []);
-      setResumeText(result.data.resumeText || ""); // ✅ IMPORTANT FIX
+setAnalysisDone(true);
+setShowSuccess(true);
 
-      setAnalysisDone(true);
-      setShowSuccess(true);
+setTimeout(()=>{
+setShowSuccess(false);
+},3000);
 
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 3000);
+}catch(error){
+console.log(error);
+}
 
-    } catch (error) {
-      console.log(error);
+setAnalyzing(false);
+
+};
+
+const removeResume = (e) => {
+
+e.stopPropagation();
+
+setResumeFile(null);
+setProjects([]);
+setSkills([]);
+setAnalysisDone(false);
+
+};
+
+
+const handleStart = async () => {
+  setLoading(true)
+  try {
+    // const result = await axios.post(ServerUrl + "/api/interview/generate-questions", { role, experience, mode, resumeText, projects, skills }, { withCredentials: true })
+    const result = await axios.post(
+ServerUrl + "/api/interview/generate-questions",
+{ role, experience, mode, projects, skills },
+{ withCredentials: true }
+)
+    console.log(result.data)
+    if(userData){
+      dispatch(setUserData({...userData, credits:result.data.creditsLeft}))
     }
+    setLoading(false)
+    onStart(result.data)
+  } catch (error) {
+  console.log(error)
 
-    setAnalyzing(false);
-  };
+  if (error.response && error.response.data && error.response.data.message) {
+    alert(error.response.data.message)
+  }
 
-  const removeResume = (e) => {
-    e.stopPropagation();
-    setResumeFile(null);
-    setProjects([]);
-    setSkills([]);
-    setAnalysisDone(false);
-  };
+  setLoading(false)
+}
+}
 
-  const handleStart = async () => {
-    setLoading(true);
-    try {
-      const result = await axios.post(
-        ServerUrl + "/api/interview/generate-questions",
-        { role, experience, mode, resumeText, projects, skills }, // ✅ FIXED
-        { withCredentials: true }
-      );
 
-      console.log(result.data);
 
-      if (userData) {
-        dispatch(setUserData({ ...userData, credits: result.data.creditsLeft }));
-      }
+return (
 
-      setLoading(false);
-      onStart(result.data);
+<motion.div
+initial={{opacity:0}}
+animate={{opacity:1}}
+transition={{duration:0.6}}
+className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4 py-12"
+>
 
-    } catch (error) {
-      console.log(error);
+<div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden">
 
-      if (error.response?.data?.message) {
-        alert(error.response.data.message);
-      }
+{/* LEFT SECTION */}
 
-      setLoading(false);
-    }
-  };
+<motion.div
+initial={{x:-80,opacity:0}}
+animate={{x:0,opacity:1}}
+transition={{duration:0.7}}
+className="bg-gradient-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
+>
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4 py-12"
-    >
+<h2 className="text-4xl font-bold text-gray-800 mb-6">
+Start Your AI Interview
+</h2>
 
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden">
+<p className="text-gray-600 mb-10">
+Practice real interview scenarios powered by AI.
+</p>
 
-        {/* LEFT */}
-        <motion.div
-          initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="bg-gradient-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
-        >
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
-            Start Your AI Interview
-          </h2>
+<div className="space-y-5">
 
-          <p className="text-gray-600 mb-10">
-            Practice real interview scenarios powered by AI.
-          </p>
+{[
+{
+icon:<FaUserTie className="text-green-600 text-xl"/>,
+text:"Choose Role & Experience"
+},
+{
+icon:<FaMicrophoneAlt className="text-green-600 text-xl"/>,
+text:"Smart Voice Interview"
+},
+{
+icon:<FaChartLine className="text-green-600 text-xl"/>,
+text:"Performance Analytics"
+}
+].map((item,index)=>(
 
-          <div className="space-y-5">
-            {[{
-              icon: <FaUserTie className="text-green-600 text-xl" />,
-              text: "Choose Role & Experience"
-            },
-            {
-              icon: <FaMicrophoneAlt className="text-green-600 text-xl" />,
-              text: "Smart Voice Interview"
-            },
-            {
-              icon: <FaChartLine className="text-green-600 text-xl" />,
-              text: "Performance Analytics"
-            }].map((item, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.03 }}
-                className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm"
-              >
-                {item.icon}
-                <span>{item.text}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+<motion.div
+key={index}
+whileHover={{scale:1.03}}
+className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm"
+>
 
-        {/* RIGHT */}
-        <motion.div
-          initial={{ x: 80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="p-12 bg-white"
-        >
+{item.icon}
+<span className="text-gray-700 font-medium">{item.text}</span>
 
-          <input
-            type="text"
-            placeholder="Enter role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          />
+</motion.div>
 
-          <input
-            type="text"
-            placeholder="Experience"
-            value={experience}
-            onChange={(e) => setExperience(e.target.value)}
-          />
+))}
 
-          <select value={mode} onChange={(e) => setMode(e.target.value)}>
-            <option value="Technical">Technical Interview</option>
-            <option value="HR">HR Interview</option>
-          </select>
+</div>
 
-          <input
-            type="file"
-            onChange={(e) => setResumeFile(e.target.files[0])}
-          />
+</motion.div>
 
-          <button onClick={handleUploadResume}>
-            {analyzing ? "Analyzing..." : "Analyze Resume"}
-          </button>
+{/* RIGHT SECTION */}
 
-          <button onClick={handleStart}>
-            {loading ? "Starting..." : "Start Interview"}
-          </button>
+<motion.div
+initial={{x:80,opacity:0}}
+animate={{x:0,opacity:1}}
+transition={{duration:0.7}}
+className="p-12 bg-white"
+>
 
-        </motion.div>
-      </div>
-    </motion.div>
-  );
+<h2 className="text-3xl font-bold text-gray-800 mb-8">
+Interview Setup
+</h2>
+
+<div className="space-y-6">
+
+{/* ROLE */}
+
+<div className="relative">
+
+<FaUserTie className="absolute top-4 left-4 text-gray-400"/>
+
+<input
+type="text"
+placeholder="Enter role"
+value={role}
+onChange={(e)=>setRole(e.target.value)}
+className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500"
+/>
+
+</div>
+
+{/* EXPERIENCE */}
+
+<div className="relative">
+
+<FaBriefcase className="absolute top-4 left-4 text-gray-400"/>
+
+<input
+type="text"
+placeholder="Experience"
+value={experience}
+onChange={(e)=>setExperience(e.target.value)}
+className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500"
+/>
+
+</div>
+
+<select
+value={mode}
+onChange={(e)=>setMode(e.target.value)}
+className="w-full py-3 px-4 border border-gray-200 rounded-xl"
+>
+
+<option value="Technical">Technical Interview</option>
+<option value="HR">HR Interview</option>
+
+</select>
+
+{/* SUCCESS MESSAGE */}
+
+{showSuccess && (
+
+<p className="text-green-600 text-sm font-medium">
+✓ Resume analyzed successfully
+</p>
+
+)}
+
+{/* RESUME UPLOAD */}
+
+{!analysisDone && (
+
+<motion.div
+onClick={()=>document.getElementById("resumeUpload").click()}
+className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500"
+>
+
+<FaFileUpload className="text-4xl mx-auto text-green-600 mb-3"/>
+
+<input
+type="file"
+accept="application/pdf"
+id="resumeUpload"
+className="hidden"
+onChange={(e)=>setResumeFile(e.target.files[0])}
+/>
+
+<p className="text-gray-600">
+
+{resumeFile ? resumeFile.name : "Click to upload resume"}
+
+</p>
+
+{resumeFile && (
+
+<div className="flex justify-center gap-4 mt-4">
+
+<button
+onClick={(e)=>{e.stopPropagation();handleUploadResume();}}
+className="bg-gray-900 text-white px-5 py-2 rounded-lg"
+>
+
+{analyzing ? "Analyzing..." : "Analyze Resume"}
+
+</button>
+
+<button
+onClick={removeResume}
+className="text-red-500 text-sm"
+>
+
+Remove
+
+</button>
+
+</div>
+
+)}
+
+</motion.div>
+
+)}
+
+{/* RESULT */}
+
+{analysisDone && (
+
+<div className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+
+<h3 className="text-lg font-semibold text-gray-800">
+Resume Analysis Result
+</h3>
+
+{projects.length>0 && (
+
+<div>
+
+<p className="font-medium text-gray-700 mb-1">
+Projects:
+</p>
+
+<ul className="list-disc list-inside text-gray-600">
+
+{projects.map((p,i)=>(
+<li key={i}>{p}</li>
+))}
+
+</ul>
+
+</div>
+
+)}
+
+{skills.length>0 && (
+
+<div>
+
+<p className="font-medium text-gray-700 mb-1">
+Skills:
+</p>
+
+<div className="flex flex-wrap gap-2">
+
+{visibleSkills.map((s,i)=>(
+
+<span
+key={i}
+className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
+>
+{s}
+</span>
+
+))}
+
+{!showAllSkills && remainingSkills>0 && (
+
+<button
+onClick={()=>setShowAllSkills(true)}
+className="text-green-600 text-sm"
+>
++{remainingSkills} more
+</button>
+
+)}
+
+{showAllSkills && (
+
+<button
+onClick={()=>setShowAllSkills(false)}
+className="text-green-600 text-sm"
+>
+Show Less
+</button>
+
+)}
+
+</div>
+
+</div>
+
+)}
+
+</div>
+
+)}
+
+<motion.button
+onClick={handleStart}
+disabled={!role || !experience || loading}
+className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-full"
+>
+
+{loading ? "Starting...":"Start Interview"}
+
+</motion.button>
+
+</div>
+
+</motion.div>
+
+</div>
+
+</motion.div>
+
+);
+
 }
 
 export default Step1SetUp;
+
+
+
+
+
+
+// import React from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { motion } from "framer-motion";
+// import {
+//   FaUserTie,
+//   FaBriefcase,
+//   FaFileUpload,
+//   FaMicrophoneAlt,
+//   FaChartLine,
+// } from "react-icons/fa";
+// import { useState } from "react";
+// import axios from "axios";
+// import { setUserData } from "../redux/userSlice";
+
+// const ServerUrl = import.meta.env.VITE_SERVER_URL;
+
+// function Step1SetUp({ onStart }) {
+
+//   const { userData } = useSelector((state) => state.user);
+//   const dispatch = useDispatch();
+
+//   const [role, setRole] = useState("");
+//   const [experience, setExperience] = useState("");
+//   const [mode, setMode] = useState("Technical");
+
+//   const [resumeText, setResumeText] = useState(""); // ✅ ADDED
+
+//   const [resumeFile, setResumeFile] = useState(null);
+//   const [projects, setProjects] = useState([]);
+//   const [skills, setSkills] = useState([]);
+
+//   const [analysisDone, setAnalysisDone] = useState(false);
+//   const [analyzing, setAnalyzing] = useState(false);
+//   const [showSuccess, setShowSuccess] = useState(false);
+//   const [showAllSkills, setShowAllSkills] = useState(false);
+//   const [loading, setLoading] = useState(false);
+
+//   const visibleSkills = showAllSkills ? skills : skills.slice(0, 6);
+//   const remainingSkills = skills.length - 6;
+
+//   const handleUploadResume = async () => {
+//     if (!resumeFile || analyzing) return;
+
+//     setAnalyzing(true);
+
+//     const formdata = new FormData();
+//     formdata.append("resume", resumeFile);
+
+//     try {
+//       const result = await axios.post(
+//         `${ServerUrl}/api/interview/resume`,
+//         formdata,
+//         { withCredentials: true }
+//       );
+
+//       setRole(result.data.role || "");
+//       setExperience(result.data.experience || "");
+//       setProjects(result.data.projects || []);
+//       setSkills(result.data.skills || []);
+//       setResumeText(result.data.resumeText || ""); // ✅ IMPORTANT FIX
+
+//       setAnalysisDone(true);
+//       setShowSuccess(true);
+
+//       setTimeout(() => {
+//         setShowSuccess(false);
+//       }, 3000);
+
+//     } catch (error) {
+//       console.log(error);
+//     }
+
+//     setAnalyzing(false);
+//   };
+
+//   const removeResume = (e) => {
+//     e.stopPropagation();
+//     setResumeFile(null);
+//     setProjects([]);
+//     setSkills([]);
+//     setAnalysisDone(false);
+//   };
+
+//   const handleStart = async () => {
+//     setLoading(true);
+//     try {
+//       const result = await axios.post(
+//         ServerUrl + "/api/interview/generate-questions",
+//         { role, experience, mode, resumeText, projects, skills }, // ✅ FIXED
+//         { withCredentials: true }
+//       );
+
+//       console.log(result.data);
+
+//       if (userData) {
+//         dispatch(setUserData({ ...userData, credits: result.data.creditsLeft }));
+//       }
+
+//       setLoading(false);
+//       onStart(result.data);
+
+//     } catch (error) {
+//       console.log(error);
+
+//       if (error.response?.data?.message) {
+//         alert(error.response.data.message);
+//       }
+
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       transition={{ duration: 0.6 }}
+//       className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4 py-12"
+//     >
+
+//       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden">
+
+//         {/* LEFT */}
+//         <motion.div
+//           initial={{ x: -80, opacity: 0 }}
+//           animate={{ x: 0, opacity: 1 }}
+//           transition={{ duration: 0.7 }}
+//           className="bg-gradient-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
+//         >
+//           <h2 className="text-4xl font-bold text-gray-800 mb-6">
+//             Start Your AI Interview
+//           </h2>
+
+//           <p className="text-gray-600 mb-10">
+//             Practice real interview scenarios powered by AI.
+//           </p>
+
+//           <div className="space-y-5">
+//             {[{
+//               icon: <FaUserTie className="text-green-600 text-xl" />,
+//               text: "Choose Role & Experience"
+//             },
+//             {
+//               icon: <FaMicrophoneAlt className="text-green-600 text-xl" />,
+//               text: "Smart Voice Interview"
+//             },
+//             {
+//               icon: <FaChartLine className="text-green-600 text-xl" />,
+//               text: "Performance Analytics"
+//             }].map((item, index) => (
+//               <motion.div
+//                 key={index}
+//                 whileHover={{ scale: 1.03 }}
+//                 className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm"
+//               >
+//                 {item.icon}
+//                 <span>{item.text}</span>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </motion.div>
+
+//         {/* RIGHT */}
+//         <motion.div
+//           initial={{ x: 80, opacity: 0 }}
+//           animate={{ x: 0, opacity: 1 }}
+//           transition={{ duration: 0.7 }}
+//           className="p-12 bg-white"
+//         >
+
+//           <input
+//             type="text"
+//             placeholder="Enter role"
+//             value={role}
+//             onChange={(e) => setRole(e.target.value)}
+//           />
+
+//           <input
+//             type="text"
+//             placeholder="Experience"
+//             value={experience}
+//             onChange={(e) => setExperience(e.target.value)}
+//           />
+
+//           <select value={mode} onChange={(e) => setMode(e.target.value)}>
+//             <option value="Technical">Technical Interview</option>
+//             <option value="HR">HR Interview</option>
+//           </select>
+
+//           <input
+//             type="file"
+//             onChange={(e) => setResumeFile(e.target.files[0])}
+//           />
+
+//           <button onClick={handleUploadResume}>
+//             {analyzing ? "Analyzing..." : "Analyze Resume"}
+//           </button>
+
+//           <button onClick={handleStart}>
+//             {loading ? "Starting..." : "Start Interview"}
+//           </button>
+
+//         </motion.div>
+//       </div>
+//     </motion.div>
+//   );
+// }
+
+// export default Step1SetUp;
